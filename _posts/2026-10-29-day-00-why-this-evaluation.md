@@ -23,4 +23,4 @@ scanning produce bounties that beat what I spend on audit credits?**
 - Weekly roll-ups plus a final 30-day summary.
 - If BugBunny provides credits or perks for this evaluation, that is disclosed.
 
-First real entry lands tomorrow.
+First real entry lands on 01 Nov.
