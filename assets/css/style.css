@@ -168,6 +168,46 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   background: rgba(17, 25, 35, .5);
 }
 
+/* ---------- coming soon ---------- */
+.dot.soon { background: var(--accent-2); animation: pulse-blue 2.4s infinite; }
+
+@keyframes pulse-blue {
+  0% { box-shadow: 0 0 0 0 rgba(55, 200, 255, .5); }
+  70% { box-shadow: 0 0 0 9px rgba(55, 200, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(55, 200, 255, 0); }
+}
+
+.notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 34px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-2);
+  border-radius: 12px;
+  background:
+    linear-gradient(90deg, rgba(55, 200, 255, .08), transparent 62%),
+    var(--panel);
+}
+
+.notice-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(55, 200, 255, .35);
+  color: var(--accent-2);
+  background: rgba(55, 200, 255, .08);
+  white-space: nowrap;
+}
+
+.notice p { margin: 0; color: var(--muted); font-size: .94rem; }
+.notice time { color: var(--text); font-family: var(--mono); font-size: .9em; }
+
 /* ---------- metrics ---------- */
 .metrics {
   display: grid;

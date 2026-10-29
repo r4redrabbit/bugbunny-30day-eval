@@ -4,6 +4,10 @@ url: "https://r4redrabbit.github.io"
 baseurl: "/bugbunny-30day-eval"
 repo: "r4redrabbit/bugbunny-30day-eval"
 lang: "en"
+
+# Evaluation window used by the landing-page status pill
+eval_start: "2026-11-01"
+eval_days: 30
 markdown: kramdown
 
 plugins:

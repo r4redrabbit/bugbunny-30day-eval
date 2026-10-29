@@ -3,7 +3,10 @@ layout: default
 title: "30-Day Live Evaluation"
 ---
 <section class="hero">
-  <p class="eyebrow"><span class="dot"></span>live evaluation · day 00 / 30</p>
+  <p class="eyebrow" id="status">
+    <span class="dot soon"></span>
+    <span id="status-text">starts {{ site.eval_start | date: "%d %b %Y" }}</span>
+  </p>
   <h1>BugBunny.ai<br><span class="grad">30-Day Live Evaluation</span></h1>
   <p class="lede">
     A public, data-driven ROI log. For one month I am measuring what BugBunny's
@@ -19,25 +22,34 @@ title: "30-Day Live Evaluation"
   </div>
 </section>
 
+<section class="notice">
+  <span class="notice-tag">coming soon</span>
+  <p>
+    The 30-day evaluation begins
+    <time datetime="{{ site.eval_start }}">{{ site.eval_start | date: "%d %b %Y" }}</time>.
+    Daily entries, costs and PoC results will be posted here from then on.
+  </p>
+</section>
+
 <section class="metrics" aria-label="Key metrics">
   <div class="metric">
     <span class="label">audit spend</span>
-    <span class="value">$0</span>
+    <span class="value">&mdash;</span>
     <span class="hint">credits consumed</span>
   </div>
   <div class="metric">
     <span class="label">bounty return</span>
-    <span class="value">$0</span>
+    <span class="value">&mdash;</span>
     <span class="hint">confirmed payouts</span>
   </div>
   <div class="metric">
     <span class="label">false positives</span>
-    <span class="value">0<small>/0</small></span>
+    <span class="value">&mdash;</span>
     <span class="hint">of all alerts</span>
   </div>
   <div class="metric">
     <span class="label">validated PoCs</span>
-    <span class="value">0</span>
+    <span class="value">&mdash;</span>
     <span class="hint">survived triage</span>
   </div>
 </section>
@@ -68,9 +80,33 @@ title: "30-Day Live Evaluation"
 
 <section class="cta">
   <h2>Follow along</h2>
-  <p>New entry every day for 30 days. One feed, no noise.</p>
+  <p>Daily entries begin {{ site.eval_start | date: "%-d %b %Y" }}. One feed, no noise.</p>
   <div class="btns">
     <a class="btn" href="{{ '/feed.xml' | relative_url }}">Subscribe via RSS</a>
     <a class="btn ghost" href="https://github.com/{{ site.repo }}" rel="noopener">View source on GitHub</a>
   </div>
 </section>
+
+<script>
+(function () {
+  var start = Date.parse('{{ site.eval_start }}T00:00:00Z');
+  var days = {{ site.eval_days }};
+  var text = document.getElementById('status-text');
+  var dot = document.querySelector('#status .dot');
+  if (!text || isNaN(start)) return;
+
+  var now = Date.now();
+  var elapsed = Math.floor((now - start) / 86400000);
+
+  if (now < start) {
+    var left = Math.ceil((start - now) / 86400000);
+    text.textContent = 'starts {{ site.eval_start | date: "%d %b %Y" }} · in ' + left + (left === 1 ? ' day' : ' days');
+  } else if (elapsed < days) {
+    text.textContent = 'live · day ' + String(elapsed + 1).padStart(2, '0') + ' / ' + days;
+    dot.classList.remove('soon');
+  } else {
+    text.textContent = 'evaluation complete';
+    dot.classList.remove('soon');
+  }
+})();
+</script>
