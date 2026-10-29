@@ -1,5 +1,5 @@
 title: "BugBunny.ai: 30-Day Evaluation"
-description: "A public, data-driven ROI analysis of BugBunny's automated bug bounty platform — audit cost vs. bounty return, false-positive ratios, and validated PoCs."
+description: "Daily notes from a 30-day test of BugBunny.ai: what scans cost, what they found, and how many alerts held up."
 url: "https://r4redrabbit.github.io"
 baseurl: "/bugbunny-30day-eval"
 repo: "r4redrabbit/bugbunny-30day-eval"
@@ -15,3 +15,7 @@ plugins:
 
 permalink: /day/:year/:month/:day/:title/
 show_drafts: false
+
+exclude:
+  - README.md
+  - publish.sh

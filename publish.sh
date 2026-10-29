@@ -11,14 +11,14 @@ if [ "$#" -lt 2 ]; then
   exit 1
 fi
 
-DAY=$(printf "%02d" "$1" 2>/dev/null || true)
-TITLE="$2"
-DATE=$(date -u +%Y-%m-%d)
+TITLE=${2//$'\n'/ }
+DATE=$(date +%Y-%m-%d)
 
-if ! [[ "$DAY" =~ ^[0-9]{2}$ ]]; then
-  echo "[-] Day must be a number (e.g. 1, 2, 30)." >&2
+if ! [[ "$1" =~ ^[0-9]{1,2}$ ]]; then
+  echo "[-] Day must be a whole number (e.g. 1, 2, 30)." >&2
   exit 1
 fi
+DAY=$(printf "%02d" "$((10#$1))")
 
 SLUG=$(printf '%s' "$TITLE" \
   | tr '[:upper:]' '[:lower:]' \
@@ -26,18 +26,22 @@ SLUG=$(printf '%s' "$TITLE" \
   | cut -c1-80)
 [ -z "$SLUG" ] && SLUG="update"
 
+# Escape for a YAML double-quoted scalar.
 ESC_TITLE=$(printf '%s' "$TITLE" | sed 's/\\/\\\\/g; s/"/\\"/g')
+
+mkdir -p _posts
 FILE="_posts/${DATE}-day-${DAY}-${SLUG}.md"
 
 if [ ! -f "$FILE" ]; then
-  cat > "$FILE" <<EOF
----
-layout: post
-title: "Day ${DAY}: ${ESC_TITLE}"
-date: ${DATE}
----
+  {
+    printf -- '---\n'
+    printf 'layout: post\n'
+    printf 'title: "Day %s: %s"\n' "$DAY" "$ESC_TITLE"
+    printf 'date: %s\n' "$DATE"
+    printf -- '---\n'
+    cat <<'BODY'
 **Time spent:**
-**Audit cost deducted:** \$
+**Audit cost deducted:** $
 
 ### Methodology & pipeline
 -
@@ -49,7 +53,9 @@ date: ${DATE}
 
 ### Notes & friction points
 -
-EOF
+BODY
+  } > "$FILE"
+
   echo "[+] Created ${FILE}"
   echo "    Edit it, then re-run this command to commit and publish."
   exit 0

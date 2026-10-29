@@ -1,4 +1,4 @@
-# BugBunny.ai — 30-Day Evaluation
+# BugBunny.ai: 30-Day Evaluation
 
 Daily log of a 30-day ROI test of BugBunny.ai, built with Jekyll and published
 on GitHub Pages.

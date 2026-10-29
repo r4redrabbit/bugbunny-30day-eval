@@ -9,10 +9,8 @@ title: "30-Day Evaluation"
   </p>
   <h1>BugBunny.ai<br><span class="grad">30-Day Evaluation</span></h1>
   <p class="lede">
-    A public, data-driven ROI log. For one month I am measuring what BugBunny's
-    automated scanning actually returns: audit credits burned versus bounties
-    earned, false-positive ratio, and how many alerts survive triage as
-    validated PoCs.
+    I'm spending a month on BugBunny.ai to see whether it earns its keep: what
+    each scan costs, what it actually finds, and how many alerts survive triage.
   </p>
   <div class="tags">
     <span>audit cost vs. bounty</span>
@@ -80,7 +78,7 @@ title: "30-Day Evaluation"
 
 <section class="cta">
   <h2>Follow along</h2>
-  <p>Daily entries begin {{ site.eval_start | date: "%-d %b %Y" }}. One feed, no noise.</p>
+  <p>Entries start {{ site.eval_start | date: "%-d %b %Y" }}. Grab the RSS feed if you want to follow along.</p>
   <div class="btns">
     <a class="btn" href="{{ '/feed.xml' | relative_url }}">Subscribe via RSS</a>
     <a class="btn ghost" href="https://github.com/{{ site.repo }}" rel="noopener">View source on GitHub</a>
@@ -89,7 +87,7 @@ title: "30-Day Evaluation"
 
 <script>
 (function () {
-  var start = Date.parse('{{ site.eval_start }}T00:00:00Z');
+  var start = Date.parse('{{ site.eval_start }}T00:00:00');
   var days = {{ site.eval_days }};
   var text = document.getElementById('status-text');
   var dot = document.querySelector('#status .dot');
