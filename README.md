@@ -1,4 +1,4 @@
-# BugBunny.ai — 30-Day Live Evaluation
+# BugBunny.ai — 30-Day Evaluation
 
 Static site (GitHub Pages + Jekyll, custom dark layout) that publishes a daily
 ROI log for a 30-day evaluation of BugBunny.ai.
