@@ -1,14 +1,22 @@
 ---
 layout: default
 ---
-<article>
-  <h1>{{ page.title }}</h1>
-  <p>
-    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
-  </p>
+<article class="post">
+  <a class="back" href="{{ '/' | relative_url }}">&larr; all entries</a>
 
-  {{ content }}
+  <header class="post-head">
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+    </p>
+    <h1>{{ page.title }}</h1>
+  </header>
 
-  <hr>
-  <p><a href="{{ "/" | relative_url }}">&larr; Back to the evaluation hub</a></p>
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  <nav class="post-foot">
+    <a class="btn" href="{{ '/' | relative_url }}">&larr; Back to the hub</a>
+    <a class="btn ghost" href="{{ '/feed.xml' | relative_url }}">Subscribe via RSS</a>
+  </nav>
 </article>

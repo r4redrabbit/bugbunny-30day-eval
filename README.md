@@ -1,6 +1,6 @@
 # BugBunny.ai — 30-Day Live Evaluation
 
-Static site (GitHub Pages + Jekyll `jekyll-theme-hacker`) that publishes a daily
+Static site (GitHub Pages + Jekyll, custom dark layout) that publishes a daily
 ROI log for a 30-day evaluation of BugBunny.ai.
 
 ## Layout
@@ -8,7 +8,8 @@ ROI log for a 30-day evaluation of BugBunny.ai.
 ```
 _config.yml            # site config, theme, plugins
 index.md               # landing page + auto-generated post list
-_layouts/post.html     # post layout (inherits the theme's default)
+_layouts/default.html  # page shell (head, nav, footer)
+_layouts/post.html     # post layout (inherits default)
 _posts/                # one Markdown file per day
 publish.sh             # creates / publishes a daily post
 ```
@@ -22,14 +23,15 @@ git add -A
 git commit -m "Initial commit: GitHub Pages setup"
 
 # create the empty repo on GitHub, then:
-git remote add origin git@github.com:<you>/<repo>.git
+git remote add origin git@github-bugbunny:r4redrabbit/bugbunny-30day-eval.git
 git push -u origin main
 ```
 
 Then in the repo: **Settings → Pages → Build and deployment →
 Source: Deploy from a branch → Branch: `main` / `/ (root)` → Save.**
 
-Your site appears at `https://<you>.github.io/<repo>/` within a minute or two.
+Your site appears at <https://r4redrabbit.github.io/bugbunny-30day-eval/>
+within a minute or two.
 
 ## Daily workflow
 
@@ -62,8 +64,8 @@ Branch deploy is simpler for a single-author blog, so it is not included here.
 
 ## Notes
 
-- `theme: jekyll-theme-hacker` is in the GitHub Pages whitelist, so no Gemfile
-  is required for the hosted build.
+- No Gemfile is required for the hosted build: the layout ships its own CSS
+  and `jekyll-feed` is whitelisted on GitHub Pages.
 - `jekyll-feed` is also whitelisted and generates `/feed.xml`.
 - Only publish results for targets you are authorised to test.
 - If you accept credits or perks from a vendor, say so in the post.

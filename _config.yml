@@ -1,15 +1,13 @@
 title: "BugBunny.ai: 30-Day Live Evaluation"
 description: "A public, data-driven ROI analysis of BugBunny's automated bug bounty platform — audit cost vs. bounty return, false-positive ratios, and validated PoCs."
-theme: jekyll-theme-hacker
-show_downloads: false
+url: "https://r4redrabbit.github.io"
+baseurl: "/bugbunny-30day-eval"
+repo: "r4redrabbit/bugbunny-30day-eval"
+lang: "en"
 markdown: kramdown
 
-# Plugins supported by GitHub Pages (no build step needed)
 plugins:
   - jekyll-feed
 
-# Stable, readable post URLs: /day/2026/10/29/day-01-...
 permalink: /day/:year/:month/:day/:title/
-
-# Do not publish drafts by default
 show_drafts: false

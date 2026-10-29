@@ -1,0 +1,76 @@
+---
+layout: default
+title: "30-Day Live Evaluation"
+---
+<section class="hero">
+  <p class="eyebrow"><span class="dot"></span>live evaluation · day 00 / 30</p>
+  <h1>BugBunny.ai<br><span class="grad">30-Day Live Evaluation</span></h1>
+  <p class="lede">
+    A public, data-driven ROI log. For one month I am measuring what BugBunny's
+    automated scanning actually returns: audit credits burned versus bounties
+    earned, false-positive ratio, and how many alerts survive triage as
+    validated PoCs.
+  </p>
+  <div class="tags">
+    <span>audit cost vs. bounty</span>
+    <span>signal-to-noise</span>
+    <span>validated PoCs</span>
+    <span>authorised targets only</span>
+  </div>
+</section>
+
+<section class="metrics" aria-label="Key metrics">
+  <div class="metric">
+    <span class="label">audit spend</span>
+    <span class="value">$0</span>
+    <span class="hint">credits consumed</span>
+  </div>
+  <div class="metric">
+    <span class="label">bounty return</span>
+    <span class="value">$0</span>
+    <span class="hint">confirmed payouts</span>
+  </div>
+  <div class="metric">
+    <span class="label">false positives</span>
+    <span class="value">0<small>/0</small></span>
+    <span class="hint">of all alerts</span>
+  </div>
+  <div class="metric">
+    <span class="label">validated PoCs</span>
+    <span class="value">0</span>
+    <span class="hint">survived triage</span>
+  </div>
+</section>
+
+<section class="log">
+  <h2>Daily log</h2>
+
+  {% if site.posts.size == 0 %}
+    <p class="empty">First entry coming soon.</p>
+  {% else %}
+    <div class="post-list">
+      {% for post in site.posts %}
+      <a class="post-card" href="{{ post.url | relative_url }}">
+        <span class="date">
+          <span class="d">{{ post.date | date: "%d" }}</span>
+          <span class="m">{{ post.date | date: "%b" }}</span>
+        </span>
+        <span class="card-body">
+          <span class="card-title">{{ post.title }}</span>
+          <span class="card-excerpt">{{ post.excerpt | strip_html | normalize_whitespace | truncate: 140 }}</span>
+        </span>
+        <span class="arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+<section class="cta">
+  <h2>Follow along</h2>
+  <p>New entry every day for 30 days. One feed, no noise.</p>
+  <div class="btns">
+    <a class="btn" href="{{ '/feed.xml' | relative_url }}">Subscribe via RSS</a>
+    <a class="btn ghost" href="https://github.com/{{ site.repo }}" rel="noopener">View source on GitHub</a>
+  </div>
+</section>
