@@ -38,6 +38,8 @@ if [ ! -f "$FILE" ]; then
     printf 'layout: post\n'
     printf 'title: "Day %s: %s"\n' "$DAY" "$ESC_TITLE"
     printf 'date: %s\n' "$DATE"
+    printf 'day: %s\n' "$((10#$1))"
+    printf 'bugs: 0\n'
     printf -- '---\n'
     cat <<'BODY'
 **Time spent:**

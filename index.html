@@ -52,6 +52,20 @@ title: "30-Day Evaluation"
   </div>
 </section>
 
+<section class="chart-card" aria-labelledby="chart-title">
+  <div class="chart-head">
+    <div>
+      <h2 id="chart-title">Bugs found per day</h2>
+      <p class="chart-sub">Verified findings logged in each daily entry.</p>
+    </div>
+    <p class="chart-meta" id="chart-meta">No findings logged yet</p>
+  </div>
+  <div class="chart-scroll">
+    <svg id="bugs-chart" viewBox="0 0 900 300" role="img"
+         aria-label="Bar chart of bugs found on each of the 30 evaluation days"></svg>
+  </div>
+</section>
+
 <section class="log">
   <h2>Daily log</h2>
 
@@ -105,6 +119,80 @@ title: "30-Day Evaluation"
   } else {
     text.textContent = 'evaluation complete';
     dot.classList.remove('soon');
+  }
+})();
+</script>
+
+<script id="bugs-data" type="application/json">
+[{% for d in (1..site.eval_days) %}{% assign total = 0 %}{% for post in site.posts %}{% if post.day == d %}{% assign b = post.bugs | default: 0 %}{% assign total = total | plus: b %}{% endif %}{% endfor %}{"day":{{ d }},"bugs":{{ total }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
+
+<script>
+(function () {
+  var dataEl = document.getElementById('bugs-data');
+  var svg = document.getElementById('bugs-chart');
+  if (!dataEl || !svg) return;
+
+  var data;
+  try { data = JSON.parse(dataEl.textContent); } catch (e) { return; }
+  if (!data.length) return;
+
+  var W = 900, H = 300, padL = 36, padR = 14, padT = 18, padB = 30;
+  var iw = W - padL - padR, ih = H - padT - padB;
+  var max = data.reduce(function (m, d) { return Math.max(m, d.bugs); }, 0);
+  var yMax = max <= 0 ? 4 : Math.max(4, Math.ceil(max / 4) * 4);
+  var step = iw / data.length;
+  var barW = Math.max(3, step * 0.62);
+  var parts = [];
+
+  parts.push('<defs><linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">' +
+    '<stop offset="0%" stop-color="#35e08a"/>' +
+    '<stop offset="100%" stop-color="#37c8ff"/>' +
+    '</linearGradient></defs>');
+
+  for (var t = 0; t <= 4; t++) {
+    var gy = padT + ih - (ih * t / 4);
+    var gv = yMax * t / 4;
+    parts.push('<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) +
+      '" y2="' + gy + '" stroke="#1f2d3b" stroke-width="1"/>');
+    parts.push('<text x="' + (padL - 8) + '" y="' + (gy + 3.5) +
+      '" text-anchor="end" font-size="10" fill="#5b7288" ' +
+      'font-family="ui-monospace,monospace">' + gv + '</text>');
+  }
+
+  data.forEach(function (d, i) {
+    var x = padL + i * step + (step - barW) / 2;
+    var h = (d.bugs / yMax) * ih;
+    var y = padT + ih - h;
+    var tip = 'Day ' + d.day + ': ' + d.bugs + (d.bugs === 1 ? ' bug' : ' bugs');
+
+    if (h > 0) {
+      parts.push('<rect x="' + x.toFixed(2) + '" y="' + y.toFixed(2) +
+        '" width="' + barW.toFixed(2) + '" height="' + h.toFixed(2) +
+        '" rx="2" fill="url(#barGrad)"><title>' + tip + '</title></rect>');
+    } else {
+      parts.push('<circle cx="' + (x + barW / 2).toFixed(2) + '" cy="' +
+        (padT + ih - 1.5) + '" r="1.6" fill="#2a3a4c"><title>' + tip +
+        '</title></circle>');
+    }
+
+    parts.push('<text x="' + (padL + i * step + step / 2).toFixed(2) + '" y="' +
+      (H - 9) + '" text-anchor="middle" font-size="9.5" fill="#5b7288" ' +
+      'font-family="ui-monospace,monospace">' + d.day + '</text>');
+  });
+
+  parts.push('<line x1="' + padL + '" y1="' + (padT + ih) + '" x2="' + (W - padR) +
+    '" y2="' + (padT + ih) + '" stroke="#1f2d3b" stroke-width="1"/>');
+  svg.innerHTML = parts.join('');
+
+  var total = data.reduce(function (s, d) { return s + d.bugs; }, 0);
+  var best = data.reduce(function (b, d) { return d.bugs > b.bugs ? d : b; }, data[0]);
+  var meta = document.getElementById('chart-meta');
+  if (meta) {
+    meta.textContent = total === 0
+      ? 'No findings logged yet'
+      : total + (total === 1 ? ' finding' : ' findings') + ' · best day ' +
+        best.day + ' (' + best.bugs + ')';
   }
 })();
 </script>
