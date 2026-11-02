@@ -16,8 +16,9 @@ cost: 10.42
 
 ### Results
 - **Raw alerts:** TBD
-- **Verified PoCs:** 5 (4 high, 1 medium)
+- **Verified PoCs:** none yet — 5 findings pending verification (4 high, 1 medium)
 - **False positives:** TBD
+- **Status:** verification pending — will update after submission
 
 ### Notes & friction points
 -
