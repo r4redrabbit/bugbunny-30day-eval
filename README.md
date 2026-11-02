@@ -24,8 +24,9 @@ $EDITOR _posts/2026-11-01-day-01-testing-ssrf-on-example-com.md
 The first run creates the file; the second commits and pushes it. The landing
 page and `/feed.xml` update on their own.
 
-Set `bugs:` in the post front matter to the number of verified findings for the
-day; the homepage chart aggregates it per day.
+Set `bugs:` in the post front matter to the number of findings logged for the
+day; the homepage chart aggregates it per day. Verification status is noted in
+the entry itself.
 
 ## Rules
 
