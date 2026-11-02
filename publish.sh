@@ -32,6 +32,11 @@ ESC_TITLE=$(printf '%s' "$TITLE" | sed 's/\\/\\\\/g; s/"/\\"/g')
 mkdir -p _posts
 FILE="_posts/${DATE}-day-${DAY}-${SLUG}.md"
 
+# Prefer an existing post for this day so re-running on a later date or after
+# a title edit updates the same file instead of creating a duplicate.
+EXISTING=$(ls _posts/*-day-${DAY}-*.md 2>/dev/null | head -n 1 || true)
+if [ -n "$EXISTING" ]; then FILE="$EXISTING"; fi
+
 if [ ! -f "$FILE" ]; then
   {
     printf -- '---\n'
@@ -40,6 +45,7 @@ if [ ! -f "$FILE" ]; then
     printf 'date: %s\n' "$DATE"
     printf 'day: %s\n' "$((10#$1))"
     printf 'bugs: 0\n'
+    printf 'cost: 0\n'
     printf -- '---\n'
     cat <<'BODY'
 **Time spent:**

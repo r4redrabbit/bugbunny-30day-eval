@@ -208,6 +208,25 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .notice p { margin: 0; color: var(--muted); font-size: .94rem; }
 .notice time { color: var(--text); font-family: var(--mono); font-size: .9em; }
 
+.notice.is-live {
+  border-left-color: var(--accent);
+  background:
+    linear-gradient(90deg, rgba(53, 224, 138, .08), transparent 62%),
+    var(--panel);
+}
+.notice.is-live .notice-tag {
+  border-color: rgba(53, 224, 138, .35);
+  color: var(--accent);
+  background: rgba(53, 224, 138, .08);
+}
+.notice.is-done { border-left-color: var(--dim); background: var(--panel); }
+.notice.is-done .notice-tag {
+  border-color: var(--border);
+  color: var(--muted);
+  background: rgba(126, 147, 167, .08);
+}
+.dot.done { background: var(--dim); box-shadow: none; animation: none; }
+
 /* ---------- metrics ---------- */
 .metrics {
   display: grid;
